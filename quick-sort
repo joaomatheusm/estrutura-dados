@@ -1,0 +1,55 @@
+#include <stdio.h>
+
+// Protótipos das funções
+void quickSort(int array[], int inicio, int fim);
+int partition(int array[], int inicio, int fim);
+void swap(int *a, int *b);
+
+int main() {
+    int array[] = {10, 7, 8, 9, 1, 5};
+    int tamanho = sizeof(array) / sizeof(array[0]);
+
+    printf("Array original: \n");
+    for (int i = 0; i < tamanho; i++)
+        printf("%d ", array[i]);
+    printf("\n");
+
+    quickSort(array, 0, tamanho - 1);
+
+    printf("Array ordenado: \n");
+    for (int i = 0; i < tamanho; i++)
+        printf("%d ", array[i]);
+    printf("\n");
+
+    return 0;
+}
+
+// Implementação da função quickSort
+void quickSort(int array[], int inicio, int fim) {
+    if (inicio < fim) {
+        int pivo = partition(array, inicio, fim);        
+        quickSort(array, inicio, pivo - 1);        
+        quickSort(array, pivo + 1, fim);
+    }
+}
+
+// Implementação da função partition
+int partition(int array[], int inicio, int fim) {
+    int pivo = array[fim];    
+    int i = inicio - 1;    
+    for (int j = inicio; j < fim; j++) {
+        if (array[j] <= pivo) {
+            i++;            
+            swap(&array[i], &array[j]);
+        }
+    }    
+    swap(&array[i + 1], &array[fim]);    
+    return i + 1;
+}
+
+// Implementação da função swap
+void swap(int *a, int *b) {
+    int aux = *a;
+    *a = *b;
+    *b = aux;
+}
